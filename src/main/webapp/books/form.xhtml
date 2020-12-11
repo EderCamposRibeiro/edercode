@@ -22,6 +22,18 @@
 			<h:outputLabel value="Price" />
 			<h:inputText value="#{adminBooksBean.book.price}" />
 		</div>	
+		<div>
+			<h:outputLabel value="Authors"/>
+			<h:selectManyListbox 
+					value="#{adminBooksBean.authorsId}"
+					converter="javax.faces.Integer">
+				<f:selectItems 
+					value="#{adminBooksBean.authors}"
+					var="autor"
+					itemValue="#{autor.id}" 
+					itemLabel="#{autor.name}"/>
+			</h:selectManyListbox>
+		</div>
 		<h:commandButton value="Register" action="#{adminBooksBean.save}"/>					
 	</h:form>
 </html>

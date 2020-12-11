@@ -10,21 +10,37 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 public class Book {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
+	
+	@NotBlank // Null and Blank
 	private String title;
 	
 	@Lob // In order to use a big text description.
+	@Length(min = 10) // Minimal number of characters
+	@NotBlank
 	private String description;
+	
+	@DecimalMin("20") // Minimal decimal value
 	private BigDecimal price;
+	
+	@Min(50) // Minimal integer value
 	private Integer numberOfPages;
 	
 	@ManyToMany
+	@Size(min = 1) // Minimal amount of elements on the list
+	@NotNull // List cannot be Null
 	private List<Author> authors = new ArrayList<>();
 	
 	public List<Author> getAuthors() {

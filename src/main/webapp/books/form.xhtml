@@ -8,31 +8,51 @@
 	<h:form>
 		<div>
 			<h:outputLabel value="Title"/>
-			<h:inputText value="#{adminBooksBean.book.title}"/>
+			<h:inputText 
+				value="#{adminBooksBean.book.title}"
+				required="true" 
+				id="title"/>
+			<h:message for="title"/>	
 		</div>
 		<div>
 			<h:outputLabel value="Description"/>
-			<h:inputTextarea rows="4" cols="20" value="#{adminBooksBean.book.description}"/>
+			<h:inputTextarea 
+				rows="4" 
+				cols="20" 
+				value="#{adminBooksBean.book.description}"
+				required="true"
+				id="description"/>
+			<h:message for="description"/>				
 		</div>
 		<div>
 			<h:outputLabel value="Number of pages"/>
-			<h:inputText value="#{adminBooksBean.book.numberOfPages}"/>
+			<h:inputText 
+				value="#{adminBooksBean.book.numberOfPages}"
+				required="true"
+				id="numberOfPages"/>
+			<h:message for="numberOfPages"/>			
 		</div>
 		<div>
 			<h:outputLabel value="Price" />
-			<h:inputText value="#{adminBooksBean.book.price}" />
+			<h:inputText 
+				value="#{adminBooksBean.book.price}" 
+				required="true"
+				id="price"/>
+			<h:message for="price"/>					
 		</div>	
 		<div>
 			<h:outputLabel value="Authors"/>
 			<h:selectManyListbox 
 					value="#{adminBooksBean.authorsId}"
-					converter="javax.faces.Integer">
+					converter="javax.faces.Integer"
+					id="authors">
 				<f:selectItems 
 					value="#{adminBooksBean.authors}"
 					var="autor"
 					itemValue="#{autor.id}" 
 					itemLabel="#{autor.name}"/>
 			</h:selectManyListbox>
+			<h:message for="authors"/>
 		</div>
 		<h:commandButton value="Register" action="#{adminBooksBean.save}"/>					
 	</h:form>

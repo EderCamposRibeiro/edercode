@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
@@ -27,7 +29,14 @@ public class AdminBooksBean {
 	@Inject
 	private AuthorDao authorDao;
 	
+	@Inject
+	private FacesContext context;
+	
 	private List<Integer> authorsId = new ArrayList<>(); // new ArrayList in order to avoid NullPointeException
+	
+	public AdminBooksBean() {
+		context = FacesContext.getCurrentInstance();
+	}
 
 	@Transactional
 	public String save() {
@@ -35,11 +44,12 @@ public class AdminBooksBean {
 			book.getAuthors().add(new Author(authorId));
 		}
 		dao.save(book);
-		System.out.println("Registered book: " + book);
 		
-		// In order to clean the screen after the register
-		//this.book = new Book(); 
-		//this.authorsId = new ArrayList<>();
+		context.getExternalContext()
+			.getFlash().setKeepMessages(true); // Here we are activating the FlashScope
+		context
+			.addMessage(null, new FacesMessage("Book successfully registered!"));
+		
 		return "/books/list?faces-redirect=true";
 	}
 	

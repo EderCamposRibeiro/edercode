@@ -51,6 +51,15 @@ public class Book {
 	@NotNull // List cannot be Null
 	private List<Author> authors = new ArrayList<>();
 	
+	
+	public Integer getId() {
+		return id;
+	}
+	
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
 	public List<Author> getAuthors() {
 		return authors;
 	}

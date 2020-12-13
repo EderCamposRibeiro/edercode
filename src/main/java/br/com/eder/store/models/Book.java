@@ -2,6 +2,7 @@ package br.com.eder.store.models;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -10,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -37,6 +40,11 @@ public class Book {
 	
 	@Min(50) // Minimal integer value
 	private Integer numberOfPages;
+	
+	@Temporal(TemporalType.DATE)
+	private Calendar publishDate; 
+	
+	private String coverPath;
 	
 	@ManyToMany
 	@Size(min = 1) // Minimal amount of elements on the list
@@ -87,5 +95,21 @@ public class Book {
 	public String toString() {
 		return "Book [id=" + id + ", title=" + title + ", description=" + description + ", price=" + price
 				+ ", numberOfPages=" + numberOfPages + ", authors=" + authors + "]";
+	}
+
+	public Calendar getPublishDate() {
+		return publishDate;
+	}
+
+	public void setPublishDate(Calendar publishDate) {
+		this.publishDate = publishDate;
+	}
+
+	public String getCoverPath() {
+		return coverPath;
+	}
+
+	public void setCoverPath(String coverPath) {
+		this.coverPath = coverPath;
 	}
 }

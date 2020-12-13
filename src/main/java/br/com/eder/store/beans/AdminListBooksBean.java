@@ -6,8 +6,8 @@ import java.util.List;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 
+import br.com.eder.store.dao.BookDao;
 import br.com.eder.store.models.Book;
-import br.com.store.loja.dao.BookDao;
 
 @Model  // We can use @Model instead use @Named and @RequestScoped (@Model has both annotations and more)
 public class AdminListBooksBean {

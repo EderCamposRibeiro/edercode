@@ -1,6 +1,6 @@
 package br.com.eder.store.beans;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -8,12 +8,14 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.Part;
 import javax.transaction.Transactional;
 
+import br.com.eder.store.dao.AuthorDao;
+import br.com.eder.store.dao.BookDao;
+import br.com.eder.store.infra.FileSaver;
 import br.com.eder.store.models.Author;
 import br.com.eder.store.models.Book;
-import br.com.store.loja.dao.AuthorDao;
-import br.com.store.loja.dao.BookDao;
 
 //CDI
 @Named
@@ -32,18 +34,18 @@ public class AdminBooksBean {
 	@Inject
 	private FacesContext context;
 	
-	private List<Integer> authorsId = new ArrayList<>(); // new ArrayList in order to avoid NullPointeException
+	private Part bookCover;
 	
 	public AdminBooksBean() {
 		context = FacesContext.getCurrentInstance();
 	}
 
 	@Transactional
-	public String save() {
-		for (Integer authorId : authorsId) {
-			book.getAuthors().add(new Author(authorId));
-		}
+	public String save() throws IOException {
 		dao.save(book);
+		FileSaver fileSaver = new FileSaver(); // Our new class
+
+		book.setCoverPath(fileSaver.write(bookCover,"books")); //We already called the write method e already returned the path to the book
 		
 		context.getExternalContext()
 			.getFlash().setKeepMessages(true); // Here we are activating the FlashScope
@@ -52,7 +54,7 @@ public class AdminBooksBean {
 		
 		return "/books/list?faces-redirect=true";
 	}
-	
+
 	public List<Author> getAuthors() {
 		return authorDao.list();
 	}
@@ -64,13 +66,12 @@ public class AdminBooksBean {
 	public void setBook(Book book) {
 		this.book = book;
 	}
-	
-	public List<Integer> getAuthorsId() {
-		return authorsId;
-	}
-	
-	public void setAuthorsId(List<Integer> authorsId) {
-		this.authorsId = authorsId;
+
+	public Part getBookCover() {
+		return bookCover;
 	}
 
+	public void setBookCover(Part bookCover) {
+		this.bookCover = bookCover;
+	}
 }

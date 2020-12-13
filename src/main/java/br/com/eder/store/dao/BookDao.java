@@ -1,4 +1,4 @@
-package br.com.store.loja.dao;
+package br.com.eder.store.dao;
 
 import java.util.List;
 

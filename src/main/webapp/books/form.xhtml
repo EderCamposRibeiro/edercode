@@ -5,7 +5,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 	
-	<h:form>
+	<h:form enctype="multipart/form-data">
 		<div>
 			<h:outputLabel value="Title"/>
 			<h:inputText 
@@ -43,16 +43,30 @@
 		<div>
 			<h:outputLabel value="Authors"/>
 			<h:selectManyListbox 
-					value="#{adminBooksBean.authorsId}"
-					converter="javax.faces.Integer"
+					value="#{adminBooksBean.book.authors}"
+					converter="autorConverter"
 					id="authors">
 				<f:selectItems 
 					value="#{adminBooksBean.authors}"
-					var="autor"
-					itemValue="#{autor.id}" 
-					itemLabel="#{autor.name}"/>
+					var="author"
+					itemValue="#{author}" 
+					itemLabel="#{author.name}"/>
 			</h:selectManyListbox>
 			<h:message for="authors"/>
+		</div>
+		<div>
+			<h:outputLabel value="Publish Date"/>
+			<h:inputText 
+				value="#{adminBooksBean.book.publishDate}"
+				id="publishDate"/>
+			<h:message for="publishDate"/>
+		</div>
+		<div>
+			<h:outputLabel value="Book cover"/>
+			<h:inputFile 
+				value="#{adminBooksBean.bookCover}"
+				id="bookCover"/>
+			<h:message for="bookCover"/>	
 		</div>
 		<h:commandButton value="Register" action="#{adminBooksBean.save}"/>					
 	</h:form>

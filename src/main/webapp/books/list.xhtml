@@ -5,10 +5,39 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-	
+
+<h:head>
+	<h:outputStylesheet library="css" name="bootstrap.min.css"/>
+	<h:outputStylesheet library="css" name="style-admin.css"/>
+</h:head>
+
+<h:body>	
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Eder Code</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a >List</a></li>
+            <li ><h:link value="Register" outcome="form"/></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+	<div class="container">
+	<h1>Books List</h1>
 	<h:messages />
 	
-	<h:dataTable var="book" value="#{adminListBooksBean.books}">
+	<h:dataTable var="book" value="#{adminListBooksBean.books}"
+		class="table table-bordered table-striped table-hover">
 		<h:column>
 			<f:facet name="header">Title:</f:facet>
 			#{book.title}
@@ -37,6 +66,8 @@
 			     height="30%" alt="#{book.title}"/>  
 		</h:column>
 	</h:dataTable>
+	</div>
+</h:body>
 </html>
 
 

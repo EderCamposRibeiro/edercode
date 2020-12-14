@@ -17,8 +17,8 @@ public class BookDetailBean {
 	private Integer id;
 	
 	public void chargeDetail() {
-		this.setBook(dao.findById(getId()));
-		//this.book = dao.findById(id);
+		//this.setBook(dao.findById(getId()));
+		this.book = dao.findById(id);
 	}
 
 	public Integer getId() {

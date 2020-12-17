@@ -15,10 +15,12 @@ public class HomeBean {
 	private BookDao dao;
 	
 	public List<Book> lastReleases() {
+		System.out.println("Entering on the Last Releases!");
 		return dao.getLastReleases();
 	}
 
 	public List<Book> allOtherBooks() {
+		System.out.println("Entering on the All Other Books!");
 		return dao.getAllOtherBooks();
 	}
 

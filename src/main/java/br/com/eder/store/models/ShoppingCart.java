@@ -14,10 +14,9 @@ import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 
 import br.com.eder.store.dao.PurchaseDao;
-import jdk.nashorn.internal.runtime.JSONFunctions;
 
-@Named
 @SessionScoped
+@Named
 public class ShoppingCart implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -57,10 +56,9 @@ public class ShoppingCart implements Serializable{
 		return items.stream().mapToInt(item -> item.getAmount()).sum();
 	}
 
-	public void checkout(ClientUser clientUser) {
-		Purchase purchase = new Purchase();
-		purchase.setClientUser(clientUser);
-		purchase.setItems(this.toJson());
+	public void checkout(Purchase purchase) {
+		purchase.setItems(toJson());
+		purchase.setTotal(getTotal());
 		purchaseDao.save(purchase);
 	}
 
